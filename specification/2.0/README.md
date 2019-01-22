@@ -3,12 +3,16 @@
 </p>
 
 *Version 2.0*
+>*版本 2.0*
 
 The GL Transmission Format (glTF) is an API-neutral runtime asset delivery format.  glTF bridges the gap between 3D content creation tools and modern 3D applications by providing an efficient, extensible, interoperable format for the transmission and loading of 3D content.
+>GL传输格式（glTF）是一种API中立性的、实时的资产传输格式。在三维内容的传输与加载中，glTF通过提供一种高效的、可拓展的、可交互操作的格式，弥补了三维建模工具与现代三维应用之间的空白。
 
 Last Updated: June 9, 2017
+>最近更新：2017年6月9日
 
 Editors
+>编辑
 
 * Saurabh Bhatia, Microsoft
 * Patrick Cozzi, Cesium
@@ -35,6 +39,7 @@ Khronos 3D Formats Working Group and Alumni
 Copyright (C) 2013-2017 The Khronos Group Inc. All Rights Reserved. glTF is a trademark of The Khronos Group Inc.
 
 # Contents
+># 目录
 
 * [Introduction](#introduction)
   * [Motivation](#motivation)
@@ -102,9 +107,13 @@ Copyright (C) 2013-2017 The Khronos Group Inc. All Rights Reserved. glTF is a tr
 
 The GL Transmission Format (glTF) is an API-neutral runtime asset delivery format.  glTF bridges the gap between 3D content creation tools and modern graphics applications by providing an efficient, extensible, interoperable format for the transmission and loading of 3D content.
 
+>GL传输格式（glTF）是一种API中立性的、实时的资产传输格式。在三维内容的传输与加载中，glTF通过提供一种高效的、可拓展的、可交互操作的格式，弥补了三维建模工具与现代三维应用之间的空白。
+
 ## Motivation
+>## 动机
 
 *This section is non-normative.*
+>*这部分非规范表达。*
 
 Traditional 3D modeling formats have been designed to store data for offline use, primarily to support authoring workflows on desktop systems. Industry-standard 3D interchange formats allow for sharing assets between different modeling tools, and within the content pipeline in general. However, neither of these types of formats is optimized for download speed or fast loading at runtime. Files tend to grow very large, and applications need to do a significant amount of processing to load such assets into GPU-accelerated applications.
 
@@ -115,28 +124,39 @@ With the advent of mobile- and web-based 3D computing, new classes of applicatio
 glTF solves these problems by providing a vendor- and runtime-neutral format that can be loaded and rendered with minimal processing. The format combines an easily parseable JSON scene description with one or more binary files representing geometry, animations, and other rich data. Binary data is stored in such a way that it can be loaded directly into GPU buffers without additional parsing or other manipulation. Using this approach, glTF is able to faithfully preserve full hierarchical scenes with nodes, meshes, cameras, materials, and animations, while enabling efficient delivery and fast loading.
 
 ## glTF Basics
+>## glTF基础
 
 *This section is non-normative.*
+>*这部分非规范表达。*
 
 glTF assets are JSON files plus supporting external data. Specifically, a glTF asset is represented by:
+>gltf资产包括JSON文件和外部支持数据。具体来说，一个gltf资产由下列内容呈现：
 
 * A JSON-formatted file (`.gltf`) containing a full scene description: node hierarchy, materials, cameras, as well as descriptor information for meshes, animations, and other constructs
 * Binary files (`.bin`) containing geometry and animation data, and other buffer-based data
 * Image files (`.jpg`, `.png`) for textures
+> * 一个JSON格式的文件（.gltf），其包含完整的场景描述：节点层次结构（node hierarchy）、材质（materials）、照相机（cameras），以及网格（meshes）、动画（animations）和其他构造的描述符号信息。
+> * 二进制文件（.bin）包含几何图形和动画数据，以及其他基于缓冲区的数据。
+> * 纹理的图像文件（.jpg，.png等）
 
 Assets defined in other formats, such as images, may be stored in external files referenced via URI, stored side-by-side in GLB container, or embedded directly into the JSON using [data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
+>其他格式的资产（例如图片）可能被存储在通过URI引用的外部文件中，或被存储在GLB容器里，或使用[数据URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)直接嵌入JSON文件。
 
 Valid glTF asset must specify its version.
+>有效的glTF资产必须指定它的版本。
 
 <p align="center">
 <img src="figures/files.png" width="50%" />
 </p>
 
 ## Design Goals
+>## 设计目标
 
 *This section is non-normative.*
+>*这部分非规范表达。*
 
 glTF has been designed to meet the following goals:
+>glTF的设计目标如下：
 
 * *Compact file sizes.* While web developers like to work with clear text as much as possible, clear text encoding is simply not practical for transmitting 3D data due to sheer size. The glTF JSON file itself is clear text, but it is compact and rapid to parse. All large data such as geometry and animations are stored in binary files that are much smaller than equivalent text representations.
 * *Fast loading.* glTF data structures have been designed to mirror the GPU API data as closely as possible, both in the JSON and binary files, to reduce load times. For example, binary data for meshes could be viewed as JavaScript Typed Arrays and be loaded directly into GPU buffers with a simple data copy; no parsing or further processing is required.
