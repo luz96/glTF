@@ -135,9 +135,9 @@ glTF assets are JSON files plus supporting external data. Specifically, a glTF a
 * A JSON-formatted file (`.gltf`) containing a full scene description: node hierarchy, materials, cameras, as well as descriptor information for meshes, animations, and other constructs
 * Binary files (`.bin`) containing geometry and animation data, and other buffer-based data
 * Image files (`.jpg`, `.png`) for textures
-> * 一个JSON格式的文件（.gltf），其包含完整的场景描述：节点层次结构（node hierarchy）、材质（materials）、照相机（cameras），以及网格（meshes）、动画（animations）和其他构造的描述符号信息。
-> * 二进制文件（.bin）包含几何图形和动画数据，以及其他基于缓冲区的数据。
-> * 纹理的图像文件（.jpg，.png等）
+> * 一个JSON格式的文件（`.gltf`），其包含完整的场景描述：节点层次结构、材质、照相机，以及网格、动画和其他构造的描述信息。
+> * 二进制文件（`.bin`）包含几何图形和动画数据，以及其他基于缓冲区的数据。
+> * 纹理的图像文件（`.jpg`，`.png`等）
 
 Assets defined in other formats, such as images, may be stored in external files referenced via URI, stored side-by-side in GLB container, or embedded directly into the JSON using [data URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
 >其他格式的资产（例如图片）可能被存储在通过URI引用的外部文件中，或被存储在GLB容器里，或使用[数据URIs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)直接嵌入JSON文件。
@@ -159,10 +159,19 @@ glTF has been designed to meet the following goals:
 >glTF的设计目标如下：
 
 * *Compact file sizes.* While web developers like to work with clear text as much as possible, clear text encoding is simply not practical for transmitting 3D data due to sheer size. The glTF JSON file itself is clear text, but it is compact and rapid to parse. All large data such as geometry and animations are stored in binary files that are much smaller than equivalent text representations.
+>* *紧凑文件大小* 虽然web开发人员喜欢尽可能地使用纯文本，但是纯文本解码简单对于传输3D数据是不现实的。glTF JSON文件本身是纯文本，但它紧凑且解析速度快。所有的大数据，如几何图形和动画，都存储更小的的二进制文件中。
+
 * *Fast loading.* glTF data structures have been designed to mirror the GPU API data as closely as possible, both in the JSON and binary files, to reduce load times. For example, binary data for meshes could be viewed as JavaScript Typed Arrays and be loaded directly into GPU buffers with a simple data copy; no parsing or further processing is required.
+>* *加载快* 在JSON和二进制文件中，glTF数据结构被设计成尽可能紧密地映射GPU API数据，以减少加载时间。例如，网格的二进制数据可以看作JavaScript类型数组，并通过简单的数据复制直接加载到GPU缓冲区；不需要解析或进一步处理。
+
 * *Runtime-independence.* glTF makes no assumptions about the target application or 3D engine. glTF specifies no runtime behaviors other than rendering and animation.
+>* *运行独立性*  glTF对目标应用程序或3D引擎不做任何假设。除了渲染和动画之外，glTF不指定任何运行时行为。
+
 * *Complete 3D scene representation.* Exporting single objects from a modeling package is not sufficient for many applications. Often, authors want to load entire scenes, including nodes, transformations, transform hierarchy, meshes, materials, cameras, and animations into their applications. glTF strives to preserve all of this information for use in the downstream application.
+>* *完整3D场景呈现* 对于多数应用来说，从建模软件中导出单个对象是不够的。通常，作者希望在应用中加载整个场景，包括节点、转换、转换层次结构、网格、材质、照相机和动画。glTF努力保证全部信息，以便在后续的应用中使用。
+
 * *Extensibility.* While the initial base specification supports a rich feature set, there will be many opportunities for growth and improvement. glTF defines a mechanism that allows the addition of both general-purpose and vendor-specific extensions.
+>* *可拓展性* 虽然最初的基本规范支持了丰富的特征集，但仍有许多提升和改进机会。glTF定义了一种机制，允许添加通用和特定于供应商的扩展。
 
 The design of glTF takes a pragmatic approach. The format is meant to mirror the GPU APIs as closely as possible, but if it did only that, there would be no cameras, animations, or other features typically found in both modeling tools and runtime systems, and much semantic information would be lost in the translation. By supporting these common constructs, glTF content can not only load and render, but it can be immediately usable in a wider range of applications and require less duplication of effort in the content pipeline.
 
