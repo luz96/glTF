@@ -183,33 +183,49 @@ The following are outside the scope of the initial design of glTF:
 While version 2.0 of glTF does not define compression for geometry and other rich data, the [KHR_draco_mesh_compression extension](https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Khronos/KHR_draco_mesh_compression/README.md) provides that option. Future extensions may include compression methods for textures and animation data.
 
 ## Versioning
+> ## 版本管理
 
 Any updates made to glTF in a minor version will be backwards and forwards compatible. Backwards compatibility will ensure that any client implementation that supports loading a glTF 2.x asset will also be able to load a glTF 2.0 asset. Forwards compatibility will allow a client implementation that only supports glTF 2.0 to load glTF 2.x assets while gracefully ignoring any new features it does not understand.
+> 在旧版本中对glTF所做的任何更新都将是向后和向前兼容的。向后兼容性将确保任何支持加载glTF 2.x的客户端都能够加载glTF 2.0资产。向前兼容性将允许只支持glTF 2.0的客户机实现加载glTF 2.x资产，同时忽略不理解的新特性。
 
 A minor version update can introduce new features but will not change any previously existing behavior. Existing functionality can be deprecated in a minor version update, but it will not be removed. 
+> 旧版本更新可以引入新特性，但不会改变任何已存的行为。现有功能可以在旧版本更新中弃用，但不会被删除。
 
 Major version updates are not expected to be compatible with previous versions.
+> 新版本更新不预期与旧版本兼容。
 
 ## File Extensions and MIME Types
+> ## 文件拓展和MIME类型
 
 * `*.gltf` files use `model/gltf+json`
+> `*.gltf`文件使用`model/gltf+json`
 * `*.bin` files use `application/octet-stream`
+> `*.bin`文件使用`application/octet-stream`
 * Texture files use the official `image/*` type based on the specific image format. For compatibility with modern web browsers, the following image formats are supported: `image/jpeg`, `image/png`.
+> 纹理文件使用官方特定的图像格式`image/*`类型。为了与web浏览器兼容，支持以下图像格式:`image/jpeg`、`image/png`。
 
 ## JSON Encoding
+> ##JSON解码
 
 To simplify client-side implementation, glTF has additional restrictions on JSON format and encoding.
+> 为了简化客户端应用，glTF对JSON格式和编码存在以下限制：
 
 1. JSON must use UTF-8 encoding without BOM.
+> 1. JSON必须使用不含BOM的UTF-8编码；
+
    > **Implementation Note:** glTF exporters must not add a byte order mark to the beginning of JSON text. In the interests of interoperability, client implementations may ignore the presence of a byte order mark rather than treating it as an error. See [RFC8259, section 8](https://tools.ietf.org/html/rfc8259#section-8) for more information.
 
 2. All strings defined in this spec (properties names, enums) use only ASCII charset and must be written as plain text, e.g., `"buffer"` instead of `"\u0062\u0075\u0066\u0066\u0065\u0072"`.
+> 2. 本规范中定义的所有字符串(属性名、枚举)必须仅使用ASCII字符集，并且以纯文本形式编写，例如：`"buffer"`代替`"\u0062\u0075\u0066\u0066\u0065\u0072"`；
 
    > **Implementation Note:** This allows generic glTF client implementations to not have full Unicode support. Application-specific strings (e.g., values of `"name"` properties or content of `extras` fields) may use any symbols.
+
 3. Names (keys) within JSON objects must be unique, i.e., duplicate keys aren't allowed.
+> 3. JSON对象中的名称(keys)必须唯一，即不允许出现重复的key。
 
 ## URIs
-
+ > ## 统一资源标识符
+ 
 glTF uses URIs to reference buffers and image resources. Clients must support at least these two URI types:
 
 - **Data URIs** that embed resources in the JSON. They use syntax defined by [RFC&nbsp;2397](https://tools.ietf.org/html/rfc2397).
