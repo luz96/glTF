@@ -198,14 +198,14 @@ Major version updates are not expected to be compatible with previous versions.
 > ## 文件拓展和MIME类型
 
 * `*.gltf` files use `model/gltf+json`
-> `*.gltf`文件使用`model/gltf+json`
+> * `*.gltf`文件使用`model/gltf+json`
 * `*.bin` files use `application/octet-stream`
-> `*.bin`文件使用`application/octet-stream`
+> * `*.bin`文件使用`application/octet-stream`
 * Texture files use the official `image/*` type based on the specific image format. For compatibility with modern web browsers, the following image formats are supported: `image/jpeg`, `image/png`.
-> 纹理文件使用官方特定的图像格式`image/*`类型。为了与web浏览器兼容，支持以下图像格式:`image/jpeg`、`image/png`。
+> * 纹理文件使用官方特定的图像格式`image/*`类型。为了与web浏览器兼容，支持以下图像格式:`image/jpeg`、`image/png`。
 
 ## JSON Encoding
-> ##JSON解码
+> ## JSON解码
 
 To simplify client-side implementation, glTF has additional restrictions on JSON format and encoding.
 > 为了简化客户端应用，glTF对JSON格式和编码存在以下限制：
@@ -241,6 +241,7 @@ Applications should consider applying syntax-based normalization to URIs as defi
 > **Implementation Note:** While the spec does not explicitly disallow non-normalized URIs, their use may be unsupported or lead to unwanted side-effects — such as security warnings or cache misses — on some platforms.
 
 # Concepts
+> # 概念
 
 <p align="center">
 <img src="figures/dictionary-objects.png" /><br/>
@@ -248,8 +249,10 @@ The top-level arrays in a glTF asset.  See the <a href="#properties-reference">P
 </p>
 
 ## Asset
+> ## 资产
 
 Each glTF asset must have an `asset` property. In fact, it's the only required top-level property for JSON to be a valid glTF. The `asset` object must contain glTF version which specifies the target glTF version of the asset. Additionally, an optional `minVersion` property can be used to specify the minimum glTF version support required to load the asset. The `minVersion` property allows asset creators to specify a minimum version that a client implementation must support in order to load the asset. This is very similar to the `extensionsRequired` concept, where an asset should only be loaded if the client supports the specified extension. Additional metadata can be stored in optional properties such as `generator` or `copyright`.  For example,
+> 在每个glTF资产中，`asset`属性是必须的。事实上，它是JSON成为一个有效glTF文件时必须存在的顶层属性。其中，`asset`必须包含`version`属性，该属性用于定义资产的glTF版本。此外，可选属性`minVersion`用于定义加载资产时支持的最低glTF版本。`minVersion`属性允许资产创建者去定义一个客户端加载资产时必须支持的最小版本。这与`extensionsRequired`概念相似，只有当客户端支持指定的扩展时才应该加载资产。其他元数据可以存储在其他可选属性中，如`generator`或者`copyright`。示例例下：
 
 ```json
 {
@@ -265,8 +268,10 @@ Each glTF asset must have an `asset` property. In fact, it's the only required t
 
 
 ## Indices and Names
+> ## 索引和名称
 
 Entities of a glTF asset are referenced by their indices in corresponding arrays, e.g., a `bufferView` refers to a `buffer` by specifying the buffer's index in `buffers` array.  For example:
+> glTF资产中的实体通过它们在相应数组中的索引来引用，如`bufferView`引用`buffer`是通过`buffers`数组中的缓冲区索引来引用的。例如:
 
 ```json
 {
@@ -287,10 +292,13 @@ Entities of a glTF asset are referenced by their indices in corresponding arrays
 ```
 
 In this example, `buffers` and `bufferViews` have only one element each. The bufferView refers to the buffer using the buffer's index: `"buffer": 0`.
+> 在上例中，`buffers`和`bufferViews`都各只有一个元素。`bufferView`通过缓冲区索引`"buffer": 0`来引用缓冲区。
 
 Whereas indices are used for internal glTF references, _names_ are used for application-specific uses such as display. Any top-level glTF object can have a `name` string property for this purpose. These property values are not guaranteed to be unique as they are intended to contain values created when the asset was authored.
+> 索引用于内部glTF引用，而_名称_用于特定于应用程序，例如显示。为此，任何顶层glTF对象都可以有一个`name`字符串属性。这些属性值不能保证是惟一的，因为这些值是在产生资产时产生的。
 
 For property names, glTF uses [camel case](http://en.wikipedia.org/wiki/CamelCase) `likeThis`. Camel case is a common naming convention in JSON and WebGL.
+> 对于属性名，glTF使用[驼峰式写法](http://en.wikipedia.org/wiki/CamelCase)，例如`likeThis`。驼峰式写法是JSON和WebGL中的一种常见命名约定。
 
 ## Coordinate System and Units
 
